@@ -1,6 +1,6 @@
 import logging
-from datetime import datetime
 from src.extract_yfinance import fetch_prices
+from src.transform import apply_transformations
 from src.config import settings
 
 logging.basicConfig(
@@ -9,18 +9,29 @@ logging.basicConfig(
 )
 
 def main():
-    logging.info("Starting ETL run (EXTRACT only for Stage 2)")
+    logging.info("Starting ETL run: EXTRACT → TRANSFORM")
     logging.info(f"Tickers={settings.tickers} | Range={settings.start_date}→{settings.end_date}")
 
-    df = fetch_prices()
-    logging.info(f"Extracted rows: {len(df)}")
+    # EXTRACT
+    raw = fetch_prices()
+    logging.info(f"Extracted rows: {len(raw)}")
 
-    if len(df) > 0:
-        # show a tiny sample for sanity
-        sample = df.head(3).to_dict(orient="records")
-        logging.info(f"Sample rows: {sample}")
+    if raw.empty:
+        logging.warning("No data extracted; exiting early.")
+        return
 
-    logging.info("Stage 2 extract substep complete.")
+    # TRANSFORM
+    tx = apply_transformations(raw)
+    logging.info(f"Transformed rows: {len(tx)}")
+    # quick null diagnostics on new features
+    nulls = tx[["return_1d", "sma_20", "ema_20", "rsi_14"]].isna().sum().to_dict()
+    logging.info(f"Null counts (expected warm-up windows): {nulls}")
+
+    # Show a tiny sample
+    sample = tx.head(3).to_dict(orient="records")
+    logging.info(f"Sample rows: {sample}")
+
+    logging.info("Stage 3 complete (extract + transform).")
 
 if __name__ == "__main__":
     main()
