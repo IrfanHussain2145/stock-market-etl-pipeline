@@ -85,3 +85,33 @@ def upsert_prices_daily(rows):
         return {"upserts": len(rows)}
     finally:
         conn.close()
+
+def start_run(status: str = "running", message: str = None) -> int:
+    """
+    Insert a pipeline_runs row and return its run_id.
+    """
+    sql = "INSERT INTO market.pipeline_runs(status, message) VALUES (%s, %s) RETURNING run_id;"
+    conn = get_conn()
+    try:
+        with conn, conn.cursor() as cur:
+            cur.execute(sql, (status, message))
+            run_id = cur.fetchone()[0]
+        return run_id
+    finally:
+        conn.close()
+
+def finish_run(run_id: int, status: str, message: str = None):
+    """
+    Mark a run as finished with final status and optional message.
+    """
+    sql = """
+        UPDATE market.pipeline_runs
+        SET run_finished = NOW(), status = %s, message = %s
+        WHERE run_id = %s;
+    """
+    conn = get_conn()
+    try:
+        with conn, conn.cursor() as cur:
+            cur.execute(sql, (status, message, run_id))
+    finally:
+        conn.close()

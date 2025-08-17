@@ -1,0 +1,21 @@
+2025-08-17 16:39:16,872 | INFO | Starting ETL run: EXTRACT → TRANSFORM → LOAD
+2025-08-17 16:39:16,872 | INFO | Tickers=['AAPL', 'MSFT'] | Range=2020-01-01→2024-12-31
+2025-08-17 16:39:17,785 | INFO | Extracted rows: 2514
+2025-08-17 16:39:17,803 | INFO | Transformed rows: 2514
+2025-08-17 16:39:17,804 | INFO | Null counts (expected warm-up windows): {'return_1d': 2, 'sma_20': 38, 'ema_20': 0, 'rsi_14': 2}
+2025-08-17 16:39:18,167 | INFO | Load result: {'securities_upserts': 2, 'price_upserts': 2514}
+2025-08-17 16:39:18,182 | INFO | ETL run complete.
+2025-08-17 16:40:16,070 | INFO | Starting ETL run: EXTRACT → TRANSFORM → LOAD
+2025-08-17 16:40:16,071 | INFO | Tickers=['AAPL', 'MSFT'] | Range=2020-01-01→2024-12-31
+2025-08-17 16:40:16,732 | INFO | Extracted rows: 2514
+2025-08-17 16:40:16,756 | INFO | Transformed rows: 2514
+2025-08-17 16:40:16,756 | INFO | Null counts (expected warm-up windows): {'return_1d': 2, 'sma_20': 38, 'ema_20': 0, 'rsi_14': 2}
+2025-08-17 16:40:17,135 | INFO | Load result: {'securities_upserts': 2, 'price_upserts': 2514}
+2025-08-17 16:40:17,145 | INFO | ETL run complete.
+2025-08-17 16:40:20,444 | INFO | Starting ETL run: EXTRACT → TRANSFORM → LOAD
+2025-08-17 16:40:20,445 | INFO | Tickers=['AAPL', 'MSFT'] | Range=2020-01-01→2024-12-31
+2025-08-17 16:40:21,197 | INFO | Extracted rows: 2514
+2025-08-17 16:40:21,209 | INFO | Transformed rows: 2514
+2025-08-17 16:40:21,210 | INFO | Null counts (expected warm-up windows): {'return_1d': 2, 'sma_20': 38, 'ema_20': 0, 'rsi_14': 2}
+2025-08-17 16:40:21,537 | INFO | Load result: {'securities_upserts': 2, 'price_upserts': 2514}
+2025-08-17 16:40:21,549 | INFO | ETL run complete.

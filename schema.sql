@@ -32,3 +32,11 @@ CREATE TABLE IF NOT EXISTS market.prices_daily (
 
 CREATE INDEX IF NOT EXISTS idx_prices_daily_symbol_date ON market.prices_daily(symbol, trade_date);
 CREATE INDEX IF NOT EXISTS idx_prices_daily_date ON market.prices_daily(trade_date);
+
+CREATE TABLE IF NOT EXISTS market.pipeline_runs (
+  run_id      BIGSERIAL PRIMARY KEY,
+  run_started TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  run_finished TIMESTAMPTZ,
+  status      TEXT NOT NULL,              -- 'success' | 'warning' | 'error'
+  message     TEXT
+);
